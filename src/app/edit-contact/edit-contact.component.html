@@ -6,7 +6,9 @@
     <section>
       <nav>Name/Info</nav>
       <div>
-        <input formControlName="firstName" placeholder="First Name" />
+        <input formControlName="firstName" [class.error]="firstname.touched && firstname.invalid" placeholder="First Name" />
+        <em *ngIf="firstname.touched && firstname.errors?.['required']"> Please enter first Name</em>
+        <em *ngIf="firstname.touched && firstname.errors?.['minlength']"> Please enter atleast 3 charasacters</em>
         <input formControlName="lastName" placeholder="Last Name" />
         <input formControlName="dateOfBirth" type="date" placeholder="Date of Birth" [value]="contactForm.controls.dateOfBirth.value | date:'yyyy-MM-dd'"/>
         <!-- "yyyy-MM-dd" format for date -->
@@ -50,8 +52,18 @@
             <option value="mobile">Other</option>
           </select>
         </div>
+        <em *ngIf="address.dirty && address.invalid"> Incomplete Address</em>
       </div>
     </section>
+    <section>
+      <nav>Notes</nav>
+      <textarea rows="5" [class.error]="notes.errors?.['restrictWords']" formControlName="notes"></textarea>
+      <div>
+      <em *ngIf="notes.errors?.['restrictWords']"> Restricted Words found: {{notes.errors?.['restrictWords']}}</em>
+    </div>
+      <!-- <em *ngIf="notes.errors?.['restrictWords']">Restricted Words found: {{notes.errors?.['restrictWords']}}</em>   -->
+    </section>
+    
     <div class="buttons">
       <button class="secondary">Cancel</button>
       <button class="primary" type="submit">Save</button>

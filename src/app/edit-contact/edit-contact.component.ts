@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContactsService } from '../contacts/contacts.service';
+import { restrictWordsDynamic } from '../validators/restrcit.validator';
 
 @Component({
   templateUrl: './edit-contact.component.html',
@@ -14,7 +15,7 @@ export class EditContactComponent implements OnInit {
 
   contactForm = this.fb.nonNullable.group({
     id: '',
-    firstName: '',
+    firstName: ['', [Validators.required, Validators.minLength(3)]],
     lastName: '',
     dateOfBirth: <string> '',
     favoritesRanking: <number|null>null,
@@ -24,13 +25,26 @@ export class EditContactComponent implements OnInit {
     }),
     personal: false,
     address: this.fb.nonNullable.group({
-      streetAddress: '',
-      city: '',
-      state: '',
-      postalCode: '',
+      streetAddress: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      postalCode: ['', Validators.required],
       addressType: ''
-    })
+    }),
+    notes: ['', restrictWordsDynamic(['foo', 'boo'])]
   })
+
+  get firstname(){
+    return this.contactForm.controls.firstName
+  }
+
+  get address(){
+    return this.contactForm.controls.address
+  }
+
+  get notes(){
+    return this.contactForm.controls.notes;
+  }
 
   // contactForm = new FormGroup({
   //   // firstName: new FormControl({value:'', disabled: true}),

@@ -30,6 +30,7 @@ export interface Contact {
   personal: boolean,
   phone: Phone,
   address: Address,
+  notes: string
 }
 
 
