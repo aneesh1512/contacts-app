@@ -6,17 +6,24 @@
     <section>
       <nav>Name/Info</nav>
       <div>
-        <input formControlName="firstName" placeholder="First Name"/>
+        <input formControlName="firstName" placeholder="First Name" />
         <input formControlName="lastName" placeholder="Last Name" />
-        <input formControlName="dateOfBirth" placeholder="Date of Birth" />
-        <input formControlName="favoritesRanking" placeholder="Favorites Ranking" />
+        <input formControlName="dateOfBirth" type="date" placeholder="Date of Birth" [value]="contactForm.controls.dateOfBirth.value | date:'yyyy-MM-dd'"/>
+        <!-- "yyyy-MM-dd" format for date -->
+        <!-- <input formControlName="favoritesRanking" type="number" placeholder="Favorites Ranking" /> -->
+        <span>
+          <input type="checkbox" formControlName="personal" value="foo">Peronsal
+        </span>
+        <span>
+        Favourites ratings <input formControlName="favoritesRanking" type="range" min="1" max="5"> {{contactForm.controls.favoritesRanking.value}}
+      </span>
       </div>
     </section>
-    <section >
+    <section>
       <nav>Phone</nav>
       <div class="flex-column" formGroupName="phone">
         <div class="flex-group">
-          <input placeholder="Phone" formControlName="phoneNumber"/>
+          <input placeholder="Phone" formControlName="phoneNumber" />
           <img src="/assets/plus-grey-blue.png" class="add" />
         </div>
         <div class="radio">
@@ -31,13 +38,13 @@
       <div formGroupName="address">
         <div class="address">
           <div class="flex-group">
-            <input placeholder="Address" formControlName="streetAddress"/>
+            <input placeholder="Address" formControlName="streetAddress" />
             <img src="/assets/plus-grey-blue.png" class="add" />
           </div>
-          <input placeholder="City" formControlName="city"/>
-          <input placeholder="State/Region" formControlName="state"/>
-          <input placeholder="Zip/Postal Code" formControlName="postalCode"/>
-          <select>
+          <input placeholder="City" formControlName="city" />
+          <input placeholder="State/Region" formControlName="state" />
+          <input placeholder="Zip/Postal Code" formControlName="postalCode" />
+          <select formControlName="addressType">
             <option value="home">Home</option>
             <option value="work">Work</option>
             <option value="mobile">Other</option>
