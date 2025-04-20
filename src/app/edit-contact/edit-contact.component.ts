@@ -16,12 +16,13 @@ export class EditContactComponent implements OnInit {
     id: '',
     firstName: '',
     lastName: '',
-    dateOfBirth: <Date|null> null,
+    dateOfBirth: <string> '',
     favoritesRanking: <number|null>null,
     phone: this.fb.nonNullable.group({
       phoneNumber: '',
       phoneType: ''
     }),
+    personal: false,
     address: this.fb.nonNullable.group({
       streetAddress: '',
       city: '',
@@ -79,7 +80,7 @@ export class EditContactComponent implements OnInit {
     // this.contactsService.saveContact(this.contactForm.getRawValue());  // gets all the formControl Values even thought they are disbaled
     //console.log(this.contactForm.value); // when  formCOntrol is dissbled that formCOntorl is not included in formGroup value
     //console.log(this.contactsService.saveContact(this.contactForm.value));
-
+    console.log(this.contactForm.controls.dateOfBirth.value, typeof this.contactForm.controls.dateOfBirth.value);
     this.contactsService.saveContact(this.contactForm.getRawValue()).subscribe(() => {
       this.router.navigate(['/contacts'])
     })
